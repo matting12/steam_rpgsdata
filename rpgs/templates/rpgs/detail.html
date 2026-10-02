@@ -1,0 +1,9 @@
+{% extends "rpgs/base.html" %}
+{% block title %}{{ game.title }}{% endblock %}
+{% block content %}
+  <p><a href="{% url 'index' %}">&larr; Back to top 10</a></p>
+  <h1>#{{ game.rank }} {{ game.title }}</h1>
+  <p>{% if game.discount %}<span class="discount">{{ game.discount }}</span>{% endif %}
+     {% if game.is_free %}Free{% else %}{{ game.price }}{% endif %}</p>
+  <p><a href="{{ game.url }}" target="_blank" rel="noopener">View on Steam</a></p>
+{% endblock %}

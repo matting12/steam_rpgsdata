@@ -1,0 +1,30 @@
+{% extends "rpgs/base.html" %}
+{% block content %}
+  <header>
+    <h1>Top 10 Selling RPGs on Steam</h1>
+    <nav><a href="?refresh=1">Refresh</a> &middot; <a href="{% url 'api_top_rpgs' %}">JSON</a></nav>
+  </header>
+
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+  {% if top_pick %}
+    <p class="top-pick">Top pick: <strong>{{ top_pick.title }}</strong> {{ top_pick.price }}</p>
+  {% endif %}
+
+  <ol>
+    {% for game in games %}
+      <li class="game">
+        <span class="rank">{{ game.rank }}</span>
+        {% if game.image %}<img src="{{ game.image }}" alt="">{% else %}<span class="placeholder"></span>{% endif %}
+        <a class="title" href="{{ game.url }}" target="_blank" rel="noopener">{{ game.title }}</a>
+        <a class="details" href="{% url 'game_detail' game.rank %}">details</a>
+        <span class="price">
+          {% if game.discount %}<span class="discount">{{ game.discount }}</span>{% endif %}
+          {% if game.is_free %}Free{% else %}{{ game.price }}{% endif %}
+        </span>
+      </li>
+    {% empty %}
+      <li class="game">No games yet.</li>
+    {% endfor %}
+  </ol>
+{% endblock %}
