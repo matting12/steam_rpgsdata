@@ -10,7 +10,7 @@ def index(request):
     if "refresh" in request.GET or not Game.objects.exists():
         error = refresh_games()
 
-    top_pick = Game.objects.filter(rank=1)
+    top_pick = Game.objects.filter(rank=1).first()
 
     context = {"games": Game.objects.all(), "top_pick": top_pick, "error": error}
     return render(request, "rpgs/index.html", context)
