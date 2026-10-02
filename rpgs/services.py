@@ -4,8 +4,12 @@ from .scraper import fetch_top_rpgs
 
 
 def save_games(scraped):
+    ids = [g["steam_app_id"] for g in scraped]
     for g in scraped:
-        Game.objects.create(**g)
+        defaults = {k: v for k, v in g.items() if k != "steam_app_id"}
+        Game.objects.update_or_create(steam_app_id=g["steam_app_id"], defaults=defaults)
+    # Drop games that fell out of the top 10 so ranks stay unique.
+    Game.objects.exclude(steam_app_id__in=ids).delete()
 
 
 def refresh_games(limit=10):
