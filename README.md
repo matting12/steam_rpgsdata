@@ -20,4 +20,3 @@ Open http://127.0.0.1:8000. "Refresh" re-scrapes; `/api/top-rpgs/` is a JSON end
 
 - Clicking "Refresh" duplicates every row: each scrape calls `Game.objects.create()` instead of `update_or_create()`. Fix: `fix/refresh-duplicates`.
 
-- `/game/99/` raises `Game.DoesNotExist` (500) instead of showing a 404: the view uses `.get()` instead of `get_object_or_404()`. Fix: `fix/detail-404`.

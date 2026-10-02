@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import Game
 from .services import refresh_games
@@ -22,5 +22,5 @@ def api_top_rpgs(request):
 
 
 def game_detail(request, rank):
-    game = Game.objects.get(rank=rank)
+    game = get_object_or_404(Game, rank=rank)
     return render(request, "rpgs/detail.html", {"game": game})
