@@ -17,7 +17,7 @@ def index(request):
 
 
 def api_top_rpgs(request):
-    games = Game.objects.all()
+    games = list(Game.objects.values("rank", "title", "price", "discount", "url"))
     return JsonResponse({"games": games})
 
 
