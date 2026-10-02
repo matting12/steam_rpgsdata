@@ -14,7 +14,6 @@ Open http://127.0.0.1:8000. "Refresh" re-scrapes; `/api/top-rpgs/` is a JSON end
 
 ## Known issues (on `main`)
 
-- Home page "Top pick" banner shows no title or price: the view passes a QuerySet (`filter()`) where the template expects one `Game`. Fix: `fix/top-pick-first`.
 
 - `/api/top-rpgs/` crashes with a `TypeError` (500): `JsonResponse` is handed a QuerySet, which isn't JSON serializable. Fix: `fix/json-serialize-queryset`.
 
